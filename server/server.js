@@ -41,6 +41,8 @@ io.on('connection', (socket) => {
 app.use(express.json({ limit: '4mb' }))
 app.use(cors())
 
+// Routes setup
+app.use('/api/status',(req,res)=>res.send('Server is live'));
 app.use('/api/auth', userRouter)
 app.use('/api/messages', messageRouter)
 
@@ -48,8 +50,8 @@ app.use('/api/messages', messageRouter)
 await connectDB()
 
 if (process.env.NODE_ENV !== 'production'){
-const PORT = process.env.PORT || 5005;
-server.listen(PORT, () => console.log('Server is running on PORT:', + PORT))
+    const PORT = process.env.PORT || 5005;
+    server.listen(PORT, () => console.log('Server is running on PORT:', + PORT))
 }
 
 // export server for vercel
